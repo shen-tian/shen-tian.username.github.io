@@ -1,2 +1,2 @@
-# shen-tian.username.github.io
+# shen-tian.github.io
 Personal github page.
