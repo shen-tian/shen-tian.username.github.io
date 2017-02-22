@@ -4,11 +4,13 @@ title: About
 permalink: /about/
 ---
 
+A place for sharing more technical posts. I also write on Medium.
+
 Likes:
 
  * Lisp
  * Tech/house
  * Distance running
- * Afrika Burn
- * Camera
- * Purple
+ * AfrikaBurn
+ * Cameras
+ * Teal/Purple
