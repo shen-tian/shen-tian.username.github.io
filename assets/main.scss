@@ -13,7 +13,7 @@ $base-line-height: 1.75;
 $spacing-unit:     30px;
 
 $text-color:       #06425C;
-$background-color:  #51A39D;
+$background-color:  #eee;
 $brand-color:       #814374;
 
 $grey-color:       #06425C;
@@ -39,9 +39,9 @@ $on-laptop:        800px;
 @import "minima";
 
 .site-header {
-    background-color: darken($background-color, 5%);
+    background-color: #ccc;
 }
 
 .site-footer {
-    background-color: darken($background-color, 5%);
+    background-color: #ccc;
 }
