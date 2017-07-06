@@ -15,6 +15,10 @@ using their [Lock][lock] library.
 
 [lock]: https://auth0.com/docs/libraries/lock/v10
 
+[This post][other-post] works, but is not very re-frame-y.
+
+[other-post]: http://randomlurker.eu/clojurescript/re-frame/2017/05/22/re-frame-auth0-authentication.html
+
 ## Effect handler code
 
 ````clojure
