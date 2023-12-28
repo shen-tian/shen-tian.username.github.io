@@ -110,11 +110,17 @@ This decisions described above. For the capacitors and resistors, I included a D
 | U3     | Transceiver, Non-Inverting 1 Element 8 Bit per Element 3-State Output 20-TSSOP | Nexperia | 74HCT245PW,118 | 1727-6353-1-ND |
 | X1     | 16 MHz ±10ppm Crystal 9pF 60 Ohms 4-SMD, No Lead | Epson | TSX-3225 16.0000MF09Z-AC0 | SER4069CT-ND |
 
+### My impression of the design
+
+- It uses a Mini USB type B plug, though by 2013, Micro USB was already dominant (USB type C was only 2 years away!). I believe this is done for mechanical robustness.
+- 0805 components: these are huge! Not sure why this was chosen, as Adafruit's SMD lines could certainly have handled small components.
+- The 68 Ohm resistors didn't use a resistor array component.
+
 ## Manufacturing
 
 > (I’ve also converted the Eagle files to KiCad. The process was somewhat manual, but nothing especially interesting.)
 
-I ordered the boards and a stencil from JLCPCB. It looks like hand soldering the board should be possible, but I didn't try. , and reflowed the boards on a hotplate.
+I ordered the boards and a stencil from JLCPCB. It looks like hand soldering the board should be possible, but I didn't try.
 
 ![board and stencil]({{ site.url }}/assets/images/fadecandy/IMG_1702.HEIC)
 ![board front]({{ site.url }}/assets/images/fadecandy/DSC_8500.jpg)
@@ -137,4 +143,4 @@ There was some reworking needed to remove a few bridges around the LQFP package.
 
 ![boards reflowed]({{ site.url }}/assets/images/fadecandy/DSC_8548.jpg)
 
-Next part: programming!
+Next part: **programming!**
