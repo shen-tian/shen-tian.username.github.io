@@ -1,14 +1,17 @@
 ---
 layout: post
-title: Fadecandy in 2023
+title: Building a Fadecandy board in 2023
 published: true
 ---
-## Scope
 
-### Objective:
+I'm doing some maintenance/planning for an existing project that makes use of over a dozen Fadecandy LED controllers. Given these have been out of production for a few years, why not take advantage of the fact that it's open source, and make some myself?
 
-- Instructions for what it takes to build a Fadecandy board in 2023
-- Might be useful for people maintaining existing projects: updated instructions on
+> The creator of Fadecandy, Micah Elizabeth Scott, aka scanlime, seems to have stepped away from the project. She has deleted much of the official content, including the github repo. As it happens, I've already started a lot of the planning work for these DIY Fadecandies, before the github repo was deleted. I debated a bit on whether it's appropriate to do this write up, given that the project creator would rather not see it continue. In the end, I believe a key aspect of open source is to decouple the creation from the creator. With that in mind, consider this a tribute to the project.
+
+### Objective
+
+- Document what it takes to build a Fadecandy board in 2023
+- Provide information that might be useful for people maintaining existing projects: updated instructions on
   - How to build and flash the firmware
   - How to build/run the host side software
 - Show the project some appreciation
@@ -17,16 +20,20 @@ published: true
 ### Non-goals
 
 - Any continuation/expansion/evolution of the project
-- Producing more than a handful of new boards
+- Producing more than a handful of new boards. Certainly nothing commercial
 - Commitment to keeping any of the documentation up to date
 
-## Hardware
+## Bill of Materials
 
 The goal is a reasonably close reproduction of an Adafruit revision B board. The Eagle files were in the repo, and I believe this makes up for the vast majority of Fadecandies made.
 
 It’s worth noting that a Fadecandy, electrically, is based on a [Teensy 3.0](https://www.pjrc.com/store/teensy3.html) + [OctoWS2811 adapter](https://www.pjrc.com/store/octo28_adaptor.html), less Teensy’s two-chip bootloader setup, plus a 5V power supply. This will be useful in most component selection questions. I made good use of [this forum thread](https://forum.pjrc.com/index.php?threads/questions-on-teensy-3-1-components.26916/).
 
 ![fx64x8 schematic]({{ site.url }}/assets/images/fc64x8-schematic.png)
+
+A example of a (water damaged and dead) Fadecandy rev b board
+
+![reb v fadecandy]({{ site.url }}/assets/images/fadecandy/DSC_8498.jpg)
 
 Working through the schematic…
 
@@ -76,9 +83,9 @@ Lastly, the bottom of the board has a programming/debug header, in the form of 1
 
 ### Resistor changes
 
-A visual inspection of the Adafruit boards I have show 22Ohm resistors for R1 and R2 (USB D+/D-) instead of the 33Ohm components in the schematic. I have no idea why, and chances are it's not crucial. I'm going to err on what went onto the manufactured boards.
+A visual inspection of the Adafruit boards I have show 22Ohm resistors for R1 and R2 (USB D+/D-) instead of the 33Ohm components in the schematic. I have no idea why, and chances are, it's not crucial. I'm going to err on what went onto the manufactured boards.
 
-The current limiting resistor for the indicator LED is 470Ohm instead of 180Ohm. This might be related to the schematic specifying a yellow LED, whereas the boards are populated with a green one... though those two colours tend to have similar forward voltages (~2.1V), so it might just be there to make it a bit less bright. This is also unlikely to be critical. I've gone with 470.
+The current limiting resistor for the indicator LED is 470Ohm instead of 180Ohm. This might be related to the schematic specifying a yellow LED, whereas the boards are populated with a green one... though those two colours tend to have similar forward voltages (~2.1V), so it might just be there to make it a bit less bright. This is also unlikely to be critical. I ended up swapping the LED to a white one, and used a 220Ohm resistor.
 
 Lastly, the Eagle files specified 68Ohm for R4-R11. This matches the boards I have. However, the PDF schematic used 75Ohm. I've gone with 68Ohms. These resistors are there to reduce ringing, as discussed [here](https://forum.arduino.cc/t/arduino-ws2812b-data-pin-resistor/533031). There is no _right_ value, as it depends on what you are going to wire the board up to.
 
@@ -92,11 +99,11 @@ This decisions described above. For the capacitors and resistors, I included a D
 | C2-C4, C6, C11 | Cap Cer 0.1uF 50V X7R 0805 |             |         | 1276-1003-1-ND |
 | C9     | Cap Cer 0.47uF 16V X7R 0805 | |  | 1276-6483-1-ND |
 | C10    | Cap Cer 2.2uF 16V X7R 0805 | | | 1276-1162-1-ND |
-| D1     | Yellow 0805 |  |  | 754-1135-1-ND |
+| D1     | White 0805 |  |  | 3147-B1701TW--20P000314U1930CT-ND |
 | FB1, FB2 | 600 Ohms @ 100 MHz, Signal Line Ferrite Bead 0805 | Bourns | MH2029-601Y | MH2029-601YCT-ND |
 | J1       | USB - mini B USB 2.0 Receptacle Connector 5 Position Surface Mount, Right Angle | EDAC | 690-005-299-043 | 151-1206-1-ND |
 | R1, R2   | Res SMD 22Ohm 5% 1/8W 0805 | | | 311-22ARCT-ND |
-| R3     | Res SMD 470Ohm 5% 1/8W 0805 | | | 311-470ARCT-ND |
+| R3     | Res SMD 220Ohm 5% 1/8W 0805 | | | 13-RC0805JR-13220RLCT-ND |
 | R4-R11 | Res SMD 68Ohm 5% 1/8W 0805 | | | 311-68ARCT-ND |
 | U1     | ARM® Cortex®-M4 Kinetis K20 Microcontroller IC 32-Bit Single-Core 50MHz 128KB (128K x 8) FLASH 48-LQFP (7x7) | NXP | MK20DX128VLF5 | MK20DX128VLF50-ND |
 | U2     | Charge Pump Switching Regulator IC Positive Fixed 5V 1 Output 110mA SOT-23-6 Thin, TSOT-23-6 | MPS |MP9361DJ-LF-Z | 1589-1744-1-ND |
@@ -107,8 +114,27 @@ This decisions described above. For the capacitors and resistors, I included a D
 
 > (I’ve also converted the Eagle files to KiCad. The process was somewhat manual, but nothing especially interesting.)
 
-Created some Gerble files.
-Send off to LCSC, including a stencil
-Reflow on hotplate
+I ordered the boards and a stencil from JLCPCB. It looks like hand soldering the board should be possible, but I didn't try. , and reflowed the boards on a hotplate.
 
-Fin!
+![board and stencil]({{ site.url }}/assets/images/fadecandy/IMG_1702.HEIC)
+![board front]({{ site.url }}/assets/images/fadecandy/DSC_8500.jpg)
+![board back]({{ site.url }}/assets/images/fadecandy/DSC_8504.jpg)
+![stencil closeup]({{ site.url }}/assets/images/fadecandy/DSC_8517.jpg)
+
+I applied the paste using a [vacuum rig](https://www.youtube.com/watch?v=mEEo1tJj9D8&ab_channel=MariusHeier) to hold the stencil flat. It wasn't as neat as it should have been. I'm still figuring out the vacuum method.
+
+![board in jig]({{ site.url }}/assets/images/fadecandy/IMG_1704.HEIC)
+![stencil aligned on jig]({{ site.url }}/assets/images/fadecandy/IMG_1705.HEIC)
+![paste applied]({{ site.url }}/assets/images/fadecandy/DSC_8526.jpg)
+![pasted board]({{ site.url }}/assets/images/fadecandy/DSC_8533.jpg)
+![boards with components]({{ site.url }}/assets/images/fadecandy/DSC_8541.jpg)
+
+This was all reflowed on an Aliexpress 100x100mm hot plate.
+
+![boards on hotplate]({{ site.url }}/assets/images/fadecandy/DSC_8546.jpg)
+
+There was some reworking needed to remove a few bridges around the LQFP package.
+
+![boards reflowed]({{ site.url }}/assets/images/fadecandy/DSC_8548.jpg)
+
+Next part: programming!
