@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Building a Fadecandy board in 2023
+title: "Building a Fadecandy in 2023: Part 1"
 published: true
 ---
 
 I'm doing some maintenance/planning for an existing project that makes use of over a dozen Fadecandy LED controllers. Given these have been out of production for a few years, why not take advantage of the fact that it's open source, and make some myself?
 
-> The creator of Fadecandy, Micah Elizabeth Scott, aka scanlime, seems to have stepped away from the project. She has deleted much of the official content, including the github repo. As it happens, I've already started a lot of the planning work for these DIY Fadecandies, before the github repo was deleted. I debated a bit on whether it's appropriate to do this write up, given that the project creator would rather not see it continue. In the end, I believe a key aspect of open source is to decouple the creation from the creator. With that in mind, consider this a tribute to the project.
+> The creator of Fadecandy, Micah Elizabeth Scott, aka scanlime, seems to have stepped away from the project. She has deleted much of the official content, including the github repo. As it happens, I've already started a lot of the planning work for these DIY Fadecandies, before the github repo was deleted. I debated a bit on whether it's appropriate to do this write up, given that the project creator would rather not see it continue. In the end, I believe an aspect of open source is to decouple the creation from the creator. With that in mind, consider this a tribute to the project.
 
 ### Objective
 
